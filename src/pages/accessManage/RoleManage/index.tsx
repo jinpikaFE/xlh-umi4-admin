@@ -37,7 +37,10 @@ const RoleManager: React.FC = () => {
     setCItem({
       ...item,
       compon: [
-        item?.compon?.map((citem: any) => citem?.id),
+        item?.compon?.map((citem: any) => ({
+          label: citem?.name,
+          value: citem?.id,
+        })),
         item?.half_compon?.map((citem: any) => citem?.id),
       ],
     });
@@ -119,7 +122,7 @@ const RoleManager: React.FC = () => {
   const onFinish = async (values: any) => {
     const relVal = {
       ...values,
-      compon: values?.compon?.[0],
+      compon: values?.compon?.[0]?.map((item: any) => item?.value),
       half_compon: values?.compon?.[1],
     };
     if (cItem) {

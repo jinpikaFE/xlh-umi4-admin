@@ -34,12 +34,25 @@ const TreeSelectJPK: FC<TreeSelectJPKProps> = (props) => {
     value,
     onChange,
   } = props;
-  const [checkedKeys, setCheckedKeys] = useState<React.Key[]>(value?.[0] || []);
+  console.log(value);
+
+  const [checkedKeys, setCheckedKeys] = useState<any[]>(value?.[0] || []);
 
   const onCheck = (checked: React.Key[], e: any) => {
-    console.log(checked, e.halfCheckedKeys);
-    setCheckedKeys(checked);
-    onChange([checked, e.halfCheckedKeys]);
+    console.log(checked, e);
+    setCheckedKeys(
+      e?.checkedNodes?.map((item: { name: string; id: any }) => ({
+        label: item?.name,
+        value: item?.id,
+      })),
+    );
+    onChange([
+      e?.checkedNodes?.map((item: { name: string; id: any }) => ({
+        label: item?.name,
+        value: item?.id,
+      })),
+      e.halfCheckedKeys,
+    ]);
   };
 
   /** 对treeData进行加工 */
@@ -85,7 +98,7 @@ const TreeSelectJPK: FC<TreeSelectJPKProps> = (props) => {
           checkable
           defaultExpandAll={true}
           onCheck={onCheck as any}
-          checkedKeys={checkedKeys}
+          checkedKeys={checkedKeys?.map((item) => item?.value)}
           treeData={returnTreeData()}
           {...treeProps}
         />
