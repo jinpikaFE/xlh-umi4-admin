@@ -18,15 +18,15 @@ export async function getInitialState(): Promise<InitialStateType> {
   if (storage.get('userInfo')) {
     const resUser = await queryUser({ id: storage.get('userInfo')?.id });
     const currentUser = resUser?.data;
-    const authArr =
+    const componArr =
       currentUser?.role?.map((item) => item?.compon).flat(Infinity) || [];
 
-    const newAuthArr = authArr?.map((item: Compon.ComponEntity) => {
-      if (item?.name?.includes('half')) {
-        return item?.name?.substring(0, item?.name.length - 5);
-      }
-      return item?.name;
-    });
+    const halfComponArr =
+      currentUser?.role?.map((item) => item?.half_compon).flat(Infinity) || [];
+
+    const newAuthArr = componArr
+      .concat(halfComponArr)
+      ?.map((item) => item.name);
 
     if (currentUser) {
       return {

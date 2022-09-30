@@ -5,5 +5,6 @@ declare namespace Role {
     name: string;
     is_super: boolean;
     compon: Compon.ComponEntity;
+    half_compon: Compon.ComponEntity;
   };
 }
