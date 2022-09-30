@@ -42,9 +42,10 @@ export async function getInitialState(): Promise<InitialStateType> {
 
 export const layout = () => {
   return {
-    logo: 'https://img.alicdn.com/tfs/TB1YHEpwUT1gK0jSZFhXXaAtVXa-28-27.svg',
+    logo: 'https://jinpika-1308276765.cos.ap-shanghai.myqcloud.com/images/logo.png',
     layout: 'mix',
     rightContentRender: () => <RightContent />,
+    noFound: <NotFound />,
     // 自定义 403 页面
     unAccessible: (
       <NotFound
@@ -137,6 +138,7 @@ const requestInterceptors = (response: AxiosResponse) => {
 };
 
 export const request: RequestConfig = {
+  baseURL: process.env.REACT_APP_BASE_URL,
   timeout: 1000,
   requestInterceptors: [requestInterceptors],
   responseInterceptors: [responseInterceptors],

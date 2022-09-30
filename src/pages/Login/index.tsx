@@ -47,7 +47,7 @@ const Login: FC = () => {
     >
       <LoginFormPage
         backgroundImageUrl="https://gw.alipayobjects.com/zos/rmsportal/FfdJeJRQWjEeGTpqgBKj.png"
-        logo="https://github.githubassets.com/images/modules/logos_page/Octocat.png"
+        logo="https://jinpika-1308276765.cos.ap-shanghai.myqcloud.com/images/logo.png"
         title="jin pi ka"
         subTitle="网站"
         onFinish={async (values: any) => {

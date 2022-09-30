@@ -131,4 +131,8 @@ const desensitization = (
   return leftStr + strCon + rightStr;
 };
 
-export { getBase64, exportExecl, toTree, desensitization };
+const isSuper = (role?: Role.RoleEntity[]): boolean => {
+  return role?.findIndex((item) => item?.is_super) !== -1;
+};
+
+export { getBase64, exportExecl, toTree, desensitization, isSuper };

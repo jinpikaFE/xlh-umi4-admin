@@ -8,6 +8,7 @@ import type { ProFormInstance } from '@ant-design/pro-form';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
+import { useModel } from '@umijs/max';
 import { Button, message, Modal, Popconfirm } from 'antd';
 import type { FC } from 'react';
 import { useRef } from 'react';
@@ -16,6 +17,10 @@ import AccountForm from './components/accountForm';
 const AccountManage: FC = () => {
   // table form逻辑
   const modalFormRef = useRef<ProFormInstance>(null);
+  const { username } = useModel('@@initialState', (model) => ({
+    username: model?.initialState?.currentUser,
+  }));
+
   const tableRef = useRef<ActionType>(null);
   const onSubmit = async (item: any) => {
     await modalFormRef?.current?.validateFields();
@@ -77,7 +82,13 @@ const AccountManage: FC = () => {
       onOk: () => onSubmit(item),
       okText: '保存',
       cancelText: '取消',
-      content: <AccountForm modalFormRef={modalFormRef} cItem={item} />,
+      content: (
+        <AccountForm
+          modalFormRef={modalFormRef}
+          cItem={item}
+          username={username}
+        />
+      ),
     });
   };
 
@@ -102,7 +113,7 @@ const AccountManage: FC = () => {
       width: 60,
     },
     {
-      title: '姓名',
+      title: '用户名',
       dataIndex: 'username',
       hideInSearch: true,
     },

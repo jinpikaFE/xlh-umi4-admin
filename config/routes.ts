@@ -85,4 +85,8 @@ export default [
     path: '/table',
     component: './Table',
   },
+  {
+    path: '*',
+    component: './404',
+  },
 ];

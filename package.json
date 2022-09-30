@@ -12,6 +12,7 @@
     "setup": "max setup",
     "start": "cross-env PORT=8080 MOCK=none max dev",
     "start:mock": "cross-env PORT=8080 npm run dev",
+    "start:pro": "cross-env PORT=8080 UMI_ENV=pro MOCK=none max dev",
     "test": "jest"
   },
   "lint-staged": {

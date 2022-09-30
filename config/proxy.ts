@@ -10,8 +10,8 @@ export default {
   dev: {
     // localhost:8000/api/** -> https://preview.pro.ant.design/api/**
     '/api/': {
-      // 要代理的地址 http://192.168.212.30:8003
-      target: 'http://127.0.0.1:3003',
+      // 要代理的地址 http://xlh_nest.jinxinapp.cn
+      target: 'http://127.0.0.1:3004',
       // 配置了这个可以从 http 代理到 https
       // 依赖 origin 的功能可能需要这个，比如 cookie
       changeOrigin: true,

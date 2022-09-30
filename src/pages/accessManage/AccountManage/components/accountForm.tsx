@@ -3,6 +3,7 @@ import FormSelectPage, { TAsyncGetListObj } from '@/components/formSelectPage';
 import FormUploadImg from '@/components/formUploadImg';
 import { sendSms } from '@/global/api';
 import { queryRoleList } from '@/services/assessManage/role/RoleController';
+import { isSuper } from '@/utils';
 import { MailTwoTone } from '@ant-design/icons';
 import { ProFormCaptcha } from '@ant-design/pro-components';
 import type { ProFormInstance } from '@ant-design/pro-form';
@@ -13,10 +14,11 @@ import { FC, useEffect } from 'react';
 type THosForm = {
   modalFormRef: React.RefObject<ProFormInstance<any>>;
   cItem: any;
+  username?: User.UserEntity;
 };
 
 const AccountForm: FC<THosForm> = (props) => {
-  const { modalFormRef, cItem } = props;
+  const { modalFormRef, cItem, username } = props;
 
   useEffect(() => {
     modalFormRef?.current?.setFieldsValue(cItem);
@@ -135,37 +137,39 @@ const AccountForm: FC<THosForm> = (props) => {
           },
         ]}
       />
-      <ProFormCaptcha
-        fieldProps={{
-          size: 'large',
-          prefix: <MailTwoTone />,
-        }}
-        captchaProps={{
-          size: 'large',
-        }}
-        label="验证码"
-        // 手机号的 name，onGetCaptcha 会注入这个值
-        phoneName="phone"
-        name="captcha"
-        rules={[
-          {
-            required: true,
-            message: '请输入验证码',
-          },
-        ]}
-        placeholder="请输入验证码"
-        // 如果需要失败可以 throw 一个错误出来，onGetCaptcha 会自动停止
-        // throw new Error("获取验证码错误")
-        onGetCaptcha={async (phone) => {
-          // const random = parseInt((Math.random() * 10000).toString());
-          // setCaptcha(random.toString());
-          // message.success(`验证码为${random}`);
-          const res = await sendSms({ phone });
-          if (res?.code === 200) {
-            message.success('获取短信验证码成功');
-          }
-        }}
-      />
+      {!isSuper(username?.role) && (
+        <ProFormCaptcha
+          fieldProps={{
+            size: 'large',
+            prefix: <MailTwoTone />,
+          }}
+          captchaProps={{
+            size: 'large',
+          }}
+          label="验证码"
+          // 手机号的 name，onGetCaptcha 会注入这个值
+          phoneName="phone"
+          name="captcha"
+          rules={[
+            {
+              required: true,
+              message: '请输入验证码',
+            },
+          ]}
+          placeholder="请输入验证码"
+          // 如果需要失败可以 throw 一个错误出来，onGetCaptcha 会自动停止
+          // throw new Error("获取验证码错误")
+          onGetCaptcha={async (phone) => {
+            // const random = parseInt((Math.random() * 10000).toString());
+            // setCaptcha(random.toString());
+            // message.success(`验证码为${random}`);
+            const res = await sendSms({ phone });
+            if (res?.code === 200) {
+              message.success('获取短信验证码成功');
+            }
+          }}
+        />
+      )}
       <FormUploadImg
         required
         uploadProps={{ maxCount: 1 }}
