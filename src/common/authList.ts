@@ -2,6 +2,9 @@
 export enum AUTH_ITEM_ENUM {
   HOME = '首页',
 
+  MALL = '商城管理',
+  MALL_CATEGORY = '商品分类',
+
   AUTH = '权限管理',
   AUTH_COMPON = '组件管理',
   AUTH_ACCOUNT = '用户管理',

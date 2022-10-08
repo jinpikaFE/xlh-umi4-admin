@@ -28,6 +28,7 @@
 //   flatMenu: true,
 
 import { AUTH_ITEM_ENUM } from '../src/common/authList';
+import mall from './mall';
 
 // },
 export default [
@@ -44,6 +45,7 @@ export default [
     icon: 'home',
     component: './Home',
   },
+  mall,
   {
     name: '权限管理',
     path: '/accessManage',
@@ -51,6 +53,10 @@ export default [
     access: 'normalRouteFilter',
     icon: 'setting',
     routes: [
+      {
+        path: '/accessManage',
+        redirect: '/accessManage/componManage',
+      },
       {
         name: '组件管理',
         title: AUTH_ITEM_ENUM.AUTH_COMPON,

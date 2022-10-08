@@ -1,10 +1,33 @@
 {
   "openapi": "3.0.0",
   "paths": {
+    "/api/login": {
+      "post": {
+        "operationId": "LoginController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/LoginDto" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["login"]
+      }
+    },
     "/api/users": {
       "post": {
         "operationId": "UsersController_create",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "schema": { "type": "string" }
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -24,6 +47,19 @@
       }
     },
     "/api/users/{id}": {
+      "get": {
+        "operationId": "UsersController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["users"]
+      },
       "patch": {
         "operationId": "UsersController_update",
         "parameters": [
@@ -31,6 +67,12 @@
             "name": "id",
             "required": true,
             "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
             "schema": { "type": "string" }
           }
         ],
@@ -57,22 +99,6 @@
         ],
         "responses": { "200": { "description": "" } },
         "tags": ["users"]
-      }
-    },
-    "/api/login": {
-      "post": {
-        "operationId": "LoginController_create",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/LoginDto" }
-            }
-          }
-        },
-        "responses": { "201": { "description": "" } },
-        "tags": ["login"]
       }
     },
     "/api/roles": {
@@ -126,20 +152,12 @@
         },
         "responses": { "200": { "description": "" } },
         "tags": ["roles"]
-      }
-    },
-    "/api/roles/{id}/{name}": {
+      },
       "delete": {
         "operationId": "RolesController_remove",
         "parameters": [
           {
             "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "name",
             "required": true,
             "in": "path",
             "schema": { "type": "string" }
@@ -222,6 +240,448 @@
         "responses": { "200": { "description": "" } },
         "tags": ["compons"]
       }
+    },
+    "/api/sms": {
+      "post": {
+        "operationId": "SmsController_sendSms",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateSmsDto" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["sms"]
+      }
+    },
+    "/api/mall/category": {
+      "post": {
+        "operationId": "CategoryController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateCategoryDto" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["mall/category"]
+      },
+      "get": {
+        "operationId": "CategoryController_findAll",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["mall/category"]
+      }
+    },
+    "/api/mall/category/{id}": {
+      "get": {
+        "operationId": "CategoryController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["mall/category"]
+      },
+      "patch": {
+        "operationId": "CategoryController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateCategoryDto" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["mall/category"]
+      },
+      "delete": {
+        "operationId": "CategoryController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["mall/category"]
+      }
+    },
+    "/api/mall/attr-key": {
+      "post": {
+        "operationId": "AttrKeyController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateAttrKeyDto" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["mall/attr-key"]
+      },
+      "get": {
+        "operationId": "AttrKeyController_findAll",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["mall/attr-key"]
+      }
+    },
+    "/api/mall/attr-key/{id}": {
+      "get": {
+        "operationId": "AttrKeyController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["mall/attr-key"]
+      },
+      "patch": {
+        "operationId": "AttrKeyController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateAttrKeyDto" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["mall/attr-key"]
+      },
+      "delete": {
+        "operationId": "AttrKeyController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["mall/attr-key"]
+      }
+    },
+    "/api/mall/attr-val": {
+      "post": {
+        "operationId": "AttrValController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateAttrValDto" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["mall/attr-val"]
+      },
+      "get": {
+        "operationId": "AttrValController_findAll",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["mall/attr-val"]
+      }
+    },
+    "/api/mall/attr-val/{id}": {
+      "get": {
+        "operationId": "AttrValController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["mall/attr-val"]
+      },
+      "patch": {
+        "operationId": "AttrValController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateAttrValDto" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["mall/attr-val"]
+      },
+      "delete": {
+        "operationId": "AttrValController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["mall/attr-val"]
+      }
+    },
+    "/api/mall/product": {
+      "post": {
+        "operationId": "ProductController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateProductDto" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["mall/product"]
+      },
+      "get": {
+        "operationId": "ProductController_findAll",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["mall/product"]
+      }
+    },
+    "/api/mall/product/{id}": {
+      "get": {
+        "operationId": "ProductController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["mall/product"]
+      },
+      "patch": {
+        "operationId": "ProductController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateProductDto" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["mall/product"]
+      },
+      "delete": {
+        "operationId": "ProductController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["mall/product"]
+      }
+    },
+    "/api/mall/product-specs": {
+      "post": {
+        "operationId": "ProductSpecsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateProductSpecDto" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["mall/product-specs"]
+      },
+      "get": {
+        "operationId": "ProductSpecsController_findAll",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["mall/product-specs"]
+      }
+    },
+    "/api/mall/product-specs/{id}": {
+      "get": {
+        "operationId": "ProductSpecsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["mall/product-specs"]
+      },
+      "patch": {
+        "operationId": "ProductSpecsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateProductSpecDto" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["mall/product-specs"]
+      },
+      "delete": {
+        "operationId": "ProductSpecsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["mall/product-specs"]
+      }
+    },
+    "/api/mall/brand": {
+      "post": {
+        "operationId": "BrandController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateBrandDto" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["mall/brand"]
+      },
+      "get": {
+        "operationId": "BrandController_findAll",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["mall/brand"]
+      }
+    },
+    "/api/mall/brand/{id}": {
+      "get": {
+        "operationId": "BrandController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["mall/brand"]
+      },
+      "patch": {
+        "operationId": "BrandController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateBrandDto" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["mall/brand"]
+      },
+      "delete": {
+        "operationId": "BrandController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["mall/brand"]
+      }
     }
   },
   "info": {
@@ -238,6 +698,15 @@
   "servers": [],
   "components": {
     "schemas": {
+      "LoginDto": {
+        "type": "object",
+        "properties": {
+          "username": { "type": "string", "uniqueItems": true },
+          "password": { "type": "string" },
+          "loginType": { "type": "string", "enum": ["phone", "account"] }
+        },
+        "required": ["username", "password", "loginType"]
+      },
       "CreateUserDto": {
         "type": "object",
         "properties": {
@@ -260,30 +729,23 @@
         ]
       },
       "UpdateUserDto": { "type": "object", "properties": {} },
-      "LoginDto": {
-        "type": "object",
-        "properties": {
-          "username": { "type": "string", "uniqueItems": true },
-          "password": { "type": "string" },
-          "loginType": { "type": "string", "enum": ["phone", "account"] }
-        },
-        "required": ["username", "password", "loginType"]
-      },
       "CreateRoleDto": {
         "type": "object",
         "properties": {
           "name": { "type": "string", "uniqueItems": true },
-          "authority": { "type": "string" },
-          "user": { "type": "array", "items": { "type": "string" } }
+          "desc": { "type": "string" },
+          "compon": { "type": "array", "items": { "type": "string" } },
+          "half_compon": { "type": "array", "items": { "type": "string" } }
         },
-        "required": ["name", "authority", "user"]
+        "required": ["name", "desc", "compon", "half_compon"]
       },
       "UpdateRoleDto": {
         "type": "object",
         "properties": {
           "name": { "type": "string", "uniqueItems": true },
-          "authority": { "type": "string" },
-          "user": { "type": "array", "items": { "type": "string" } }
+          "desc": { "type": "string" },
+          "compon": { "type": "array", "items": { "type": "string" } },
+          "half_compon": { "type": "array", "items": { "type": "string" } }
         }
       },
       "CreateComponDto": {
@@ -291,18 +753,236 @@
         "properties": {
           "name": { "type": "string", "uniqueItems": true },
           "type": { "type": "string" },
-          "parentId": { "type": "string" },
-          "parentName": { "type": "string" }
+          "parentId": { "type": "string" }
         },
-        "required": ["name", "type", "parentId", "parentName"]
+        "required": ["name", "type", "parentId"]
       },
       "UpdateComponDto": {
         "type": "object",
         "properties": {
           "name": { "type": "string", "uniqueItems": true },
           "type": { "type": "string" },
-          "parentId": { "type": "string" },
-          "parentName": { "type": "string" }
+          "parentId": { "type": "string" }
+        }
+      },
+      "CreateSmsDto": {
+        "type": "object",
+        "properties": { "phone": { "type": "string" } },
+        "required": ["phone"]
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "uniqueItems": true },
+          "is_show": { "type": "boolean" },
+          "icon": { "type": "string" },
+          "banner": { "type": "array", "items": { "type": "string" } },
+          "key_word": { "type": "string" },
+          "desc": { "type": "string" },
+          "order": { "type": "number" },
+          "p": { "$ref": "#/components/schemas/Category" },
+          "attr_key": { "type": "array", "items": { "type": "string" } },
+          "product": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": [
+          "name",
+          "is_show",
+          "icon",
+          "banner",
+          "key_word",
+          "desc",
+          "order",
+          "p",
+          "attr_key",
+          "product"
+        ]
+      },
+      "CreateCategoryDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "uniqueItems": true },
+          "is_show": { "type": "boolean" },
+          "icon": { "type": "string" },
+          "banner": { "type": "array", "items": { "type": "string" } },
+          "key_word": { "type": "string" },
+          "desc": { "type": "string" },
+          "order": { "type": "number" },
+          "p": { "$ref": "#/components/schemas/Category" },
+          "attr_key": { "type": "array", "items": { "type": "string" } },
+          "product": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": [
+          "name",
+          "is_show",
+          "icon",
+          "banner",
+          "key_word",
+          "desc",
+          "order",
+          "p",
+          "attr_key",
+          "product"
+        ]
+      },
+      "UpdateCategoryDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "uniqueItems": true },
+          "is_show": { "type": "boolean" },
+          "icon": { "type": "string" },
+          "banner": { "type": "array", "items": { "type": "string" } },
+          "key_word": { "type": "string" },
+          "desc": { "type": "string" },
+          "order": { "type": "number" },
+          "p": { "$ref": "#/components/schemas/Category" },
+          "attr_key": { "type": "array", "items": { "type": "string" } },
+          "product": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "CreateAttrKeyDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "uniqueItems": true },
+          "is_filter": { "type": "boolean" },
+          "is_sku": { "type": "boolean" },
+          "order": { "type": "number" },
+          "attr_val": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["name", "is_filter", "is_sku", "order", "attr_val"]
+      },
+      "UpdateAttrKeyDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "uniqueItems": true },
+          "is_filter": { "type": "boolean" },
+          "is_sku": { "type": "boolean" },
+          "order": { "type": "number" },
+          "attr_val": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "CreateAttrValDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "uniqueItems": true },
+          "order": { "type": "number" }
+        },
+        "required": ["name", "order"]
+      },
+      "UpdateAttrValDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "uniqueItems": true },
+          "order": { "type": "number" }
+        }
+      },
+      "CreateProductDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "uniqueItems": true },
+          "sub_title": { "type": "string" },
+          "desc": { "type": "string" },
+          "order": { "type": "number" },
+          "is_shelf": { "type": "boolean" },
+          "is_new": { "type": "boolean" },
+          "is_recommend": { "type": "boolean" },
+          "serve": { "type": "array", "items": { "type": "string" } },
+          "detail_title": { "type": "string" },
+          "detail_desc": { "type": "string" },
+          "key_word": { "type": "string" },
+          "remark": { "type": "string" },
+          "params": { "type": "object" },
+          "detail_banner": { "type": "array", "items": { "type": "string" } },
+          "detail_img": { "type": "string" },
+          "product_specs": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": [
+          "name",
+          "sub_title",
+          "desc",
+          "order",
+          "is_shelf",
+          "is_new",
+          "is_recommend",
+          "serve",
+          "detail_title",
+          "detail_desc",
+          "key_word",
+          "remark",
+          "params",
+          "detail_banner",
+          "detail_img",
+          "product_specs"
+        ]
+      },
+      "UpdateProductDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "uniqueItems": true },
+          "sub_title": { "type": "string" },
+          "desc": { "type": "string" },
+          "order": { "type": "number" },
+          "is_shelf": { "type": "boolean" },
+          "is_new": { "type": "boolean" },
+          "is_recommend": { "type": "boolean" },
+          "serve": { "type": "array", "items": { "type": "string" } },
+          "detail_title": { "type": "string" },
+          "detail_desc": { "type": "string" },
+          "key_word": { "type": "string" },
+          "remark": { "type": "string" },
+          "params": { "type": "object" },
+          "detail_banner": { "type": "array", "items": { "type": "string" } },
+          "detail_img": { "type": "string" },
+          "product_specs": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "CreateProductSpecDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "uniqueItems": true },
+          "price": { "type": "number" },
+          "article_num": { "type": "string" },
+          "stock": { "type": "number" },
+          "unit": { "type": "string" },
+          "img": { "type": "string" },
+          "sku": { "type": "object" }
+        },
+        "required": [
+          "name",
+          "price",
+          "article_num",
+          "stock",
+          "unit",
+          "img",
+          "sku"
+        ]
+      },
+      "UpdateProductSpecDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "uniqueItems": true },
+          "price": { "type": "number" },
+          "article_num": { "type": "string" },
+          "stock": { "type": "number" },
+          "unit": { "type": "string" },
+          "img": { "type": "string" },
+          "sku": { "type": "object" }
+        }
+      },
+      "CreateBrandDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "uniqueItems": true },
+          "logo": { "type": "string" },
+          "product": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["name", "logo", "product"]
+      },
+      "UpdateBrandDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "uniqueItems": true },
+          "logo": { "type": "string" },
+          "product": { "type": "array", "items": { "type": "string" } }
         }
       }
     }
