@@ -41,7 +41,7 @@ const RightDrawer: React.FC<RightDrawerProps & ProFormProps> = React.forwardRef(
         visible={visibleDrawer}
         drawerProps={{
           forceRender: true,
-          // destroyOnClose: true,
+          destroyOnClose: true,
           onClose: onCloseDrawer,
         }}
         onFinish={onFinish}

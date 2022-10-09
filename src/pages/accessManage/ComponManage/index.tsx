@@ -13,7 +13,7 @@ import { Button, message, Popconfirm } from 'antd';
 import React, { useRef, useState } from 'react';
 import ComponFormItem from './components/ComponFormItem';
 
-const SideMenu: React.FC = () => {
+const ComponManage: React.FC = () => {
   const refTable = useRef<ActionType>();
   const formRef = useRef();
   const childrenRef = useRef<any>(null);
@@ -180,7 +180,7 @@ const SideMenu: React.FC = () => {
         }}
         cItem={cItem}
         setCItem={setCItem}
-        drawerTitle="新增组件"
+        drawerTitle={cItem?.name ? '编辑组件' : '新增组件'}
         renderFormItemDom={renderFormItemDom}
         columns={columns}
       />
@@ -188,4 +188,4 @@ const SideMenu: React.FC = () => {
   );
 };
 
-export default SideMenu;
+export default ComponManage;
