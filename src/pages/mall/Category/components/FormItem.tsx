@@ -1,7 +1,6 @@
 import FormUploadImg from '@/components/formUploadImg';
 import {
   ProFormDigit,
-  ProFormSwitch,
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-form';
@@ -49,7 +48,7 @@ const AttrKeyFormItem: React.FC = () => {
         label="关键词"
         rules={[{ required: true, message: '请输入关键词!' }]}
       />
-      <ProFormSwitch label="是否显示" name="is_show" />
+      {/* <ProFormSwitch label="是否显示" name="is_show" /> */}
       <ProFormDigit
         label="排序"
         name="order"

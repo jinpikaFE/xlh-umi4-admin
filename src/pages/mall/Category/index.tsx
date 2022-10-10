@@ -218,7 +218,7 @@ const ComponManage: React.FC = () => {
         }}
         FromProps={{
           initialValues: {
-            is_show: true,
+            // is_show: true,
             // parentId: cItem?.parentId,
           },
         }}
