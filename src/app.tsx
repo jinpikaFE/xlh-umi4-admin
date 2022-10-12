@@ -47,7 +47,7 @@ export const layout = () => {
     rightContentRender: () => <RightContent />,
     noFound: <NotFound />,
     // 自定义 403 页面
-    unAccessible: (
+    noAccessible: (
       <NotFound
         status="403"
         title="403"
