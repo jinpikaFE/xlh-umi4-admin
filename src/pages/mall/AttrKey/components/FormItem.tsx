@@ -7,7 +7,9 @@ import {
 import { ProFormText } from '@ant-design/pro-form';
 import React from 'react';
 
-const AttrKeyFormItem: React.FC = () => {
+const AttrKeyFormItem: React.FC<{ cItem?: NAttrKey.AttrKeyEntity }> = ({
+  cItem,
+}) => {
   return (
     <>
       <ProFormText
@@ -44,7 +46,7 @@ const AttrKeyFormItem: React.FC = () => {
           const res = await queryAttrValList({
             current: 1,
             pageSize: 100,
-            noKey: true,
+            arr_key_id: cItem?.id,
           });
           if (res?.code === 200) {
             return res?.data?.map((item) => ({

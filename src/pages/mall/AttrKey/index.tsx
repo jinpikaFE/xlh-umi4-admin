@@ -164,7 +164,7 @@ const AttrKey: React.FC = () => {
   ];
 
   const renderFormItemDom = () => {
-    return <AttrKeyFormItem />;
+    return <AttrKeyFormItem cItem={cItem} />;
   };
 
   const onFinish = async (values: any) => {
