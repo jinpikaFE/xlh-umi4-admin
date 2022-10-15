@@ -63,7 +63,11 @@ const AttrKey: React.FC = () => {
     {
       title: '是否作为筛选项',
       dataIndex: 'is_filter',
-      valueType: 'switch',
+      valueType: 'select',
+      valueEnum: {
+        true: '是',
+        false: '否',
+      },
       render: (_, values) => {
         return (
           <Switch
@@ -83,7 +87,11 @@ const AttrKey: React.FC = () => {
     {
       title: '是否作为sku项',
       dataIndex: 'is_sku',
-      valueType: 'switch',
+      valueType: 'select',
+      valueEnum: {
+        true: '是',
+        false: '否',
+      },
       render: (_, values) => {
         return (
           <Switch

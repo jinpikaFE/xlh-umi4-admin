@@ -44,6 +44,7 @@ const AttrKeyFormItem: React.FC = () => {
           const res = await queryAttrValList({
             current: 1,
             pageSize: 100,
+            noKey: true,
           });
           if (res?.code === 200) {
             return res?.data?.map((item) => ({

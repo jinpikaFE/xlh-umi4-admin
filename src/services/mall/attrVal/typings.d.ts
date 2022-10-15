@@ -1,5 +1,5 @@
 declare namespace NAttrVal {
-  type QueryParams = Global.QueryParams &
+  type QueryParams = { noKey?: boolean } & Global.QueryParams &
     Partial<Pick<AttrValEntity, 'name' | 'order'>>;
   type AttrValEntity = {
     id: string | number;
