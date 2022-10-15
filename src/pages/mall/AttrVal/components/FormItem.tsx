@@ -7,15 +7,15 @@ const AttrKeyFormItem: React.FC = () => {
     <>
       <ProFormText
         name="name"
-        label="属性名"
+        label="属性值名"
         tooltip="最长为 16 位"
-        placeholder="请输入属性名"
+        placeholder="请输入属性值名"
         rules={[
-          { required: true, message: '请输入属性名!' },
+          { required: true, message: '请输入属性值名!' },
           {
             validator: (rule, value, callback) => {
               if (value.length > 16) {
-                callback('属性名过长，最长为 16 位');
+                callback('属性值名过长，最长为 16 位');
               } else {
                 callback();
               }

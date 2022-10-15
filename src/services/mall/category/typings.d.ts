@@ -1,10 +1,10 @@
 declare namespace NCategory {
   type CategoryEntity = {
-    id?: string | number;
+    id: string | number;
     name: string;
     is_show: boolean;
-    icon?: string;
-    banner?: string[];
+    icon?: string | any[] | any;
+    banner?: string[] | any;
     key_words?: string;
     desc?: string;
     order?: number;

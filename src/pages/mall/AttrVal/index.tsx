@@ -52,7 +52,7 @@ const AttrVal: React.FC = () => {
       width: 60,
     },
     {
-      title: '属性名',
+      title: '属性值名',
       dataIndex: 'name',
       copyable: true,
       ellipsis: true,

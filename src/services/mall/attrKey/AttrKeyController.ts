@@ -2,30 +2,42 @@
 // 该文件由 OneAPI 自动生成，请勿手动修改！
 import { request } from '@umijs/max';
 
-export async function queryComponList() {
-  return request<Global.Result<Compon.ComponEntity[]>>('/api/compon', {
-    method: 'get',
-  });
+export async function queryAttrKeyList(
+  params: NAttrKey.QueryParams & Global.PageParams,
+) {
+  return request<Global.Result<NAttrKey.AttrKeyEntity[]>>(
+    '/api/mall/attr-key',
+    {
+      method: 'get',
+      params,
+    },
+  );
 }
 
-export async function addCompon(data: Compon.ComponEntity) {
-  return request<Global.Result<Compon.ComponEntity>>('/api/compon', {
+export async function addAttrKey(data: NAttrKey.AttrKeyEntity) {
+  return request<Global.Result<NAttrKey.AttrKeyEntity>>('/api/mall/attr-key', {
     method: 'post',
     data,
   });
 }
 
-export async function editCompon(data: Compon.ComponEntity) {
+export async function editAttrKey(data: Partial<NAttrKey.AttrKeyEntity>) {
   const { id, ...restData } = data;
-  return request<Global.Result<Compon.ComponEntity>>(`/api/compon/${id}`, {
-    method: 'patch',
-    data: restData,
-  });
+  return request<Global.Result<NAttrKey.AttrKeyEntity>>(
+    `/api/mall/attr-key/${id}`,
+    {
+      method: 'patch',
+      data: restData,
+    },
+  );
 }
 
-export async function delCompon(data: Pick<Compon.ComponEntity, 'id'>) {
+export async function delAttrKey(data: Pick<NAttrKey.AttrKeyEntity, 'id'>) {
   const { id } = data;
-  return request<Global.Result<Compon.ComponEntity>>(`/api/compon/${id}`, {
-    method: 'delete',
-  });
+  return request<Global.Result<NAttrKey.AttrKeyEntity>>(
+    `/api/mall/attr-key/${id}`,
+    {
+      method: 'delete',
+    },
+  );
 }

@@ -1,31 +1,25 @@
 import RightDrawer from '@/components/RightDrawer';
-import { queryComponList } from '@/services/assessManage/compon/ComponController';
 import {
-  addRole,
-  delRole,
-  editRole,
-  queryRoleList,
-} from '@/services/assessManage/role/RoleController';
-// import { getInterviewList } from '@/services/account/api';
+  addAttrKey,
+  delAttrKey,
+  editAttrKey,
+  queryAttrKeyList,
+} from '@/services/mall/AttrKey/AttrKeyController';
 
 import { PlusOutlined } from '@ant-design/icons';
 import type { ProFormInstance } from '@ant-design/pro-form';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import { Button, message, Popconfirm } from 'antd';
-import React, { useEffect, useRef, useState } from 'react';
+import { Button, message, Popconfirm, Switch } from 'antd';
+import React, { useRef, useState } from 'react';
 import AttrKeyFormItem from './components/FormItem';
 
 const AttrKey: React.FC = () => {
   const [visibleDrawer, setVisibleDrawer] = useState<boolean>(false);
-  const [cItem, setCItem] = useState<Compon.ComponEntity>();
+  const [cItem, setCItem] = useState<NAttrKey.AttrKeyEntity>();
   const refTable = useRef<ActionType>();
   const formRef = useRef<ProFormInstance | any>();
-
-  const [treeData, setTreeData] = useState<Compon.ComponEntity[]>([]);
-
-  console.log(treeData);
 
   const showDrawer = () => {
     setVisibleDrawer(true);
@@ -35,29 +29,25 @@ const AttrKey: React.FC = () => {
     setVisibleDrawer(false);
   };
 
-  const edit = async (item: any) => {
+  const edit = async (item: NAttrKey.AttrKeyEntity) => {
     setCItem({
       ...item,
-      compon: [
-        item?.compon?.map((citem: any) => ({
-          label: citem?.name,
-          value: citem?.id,
-        })),
-        item?.half_compon?.map((citem: any) => citem?.id),
-      ],
+      attr_val: item?.attr_val?.map(
+        (cItem: NAttrKey.AttrKeyEntity) => cItem?.id,
+      ),
     });
     showDrawer();
   };
 
-  const del = async (id: string) => {
-    const res = await delRole({ id });
+  const del = async (id: string | number) => {
+    const res = await delAttrKey({ id });
     if (res.code === 200) {
       message.success(res?.message || '删除成功');
       refTable?.current?.reloadAndRest?.();
     }
   };
 
-  const columns: ProColumns[] = [
+  const columns: ProColumns<NAttrKey.AttrKeyEntity>[] = [
     {
       title: '序号',
       dataIndex: 'id',
@@ -65,14 +55,73 @@ const AttrKey: React.FC = () => {
       width: 60,
     },
     {
-      title: '角色名',
+      title: '属性key名',
       dataIndex: 'name',
       copyable: true,
       ellipsis: true,
     },
     {
-      title: '角色描述',
-      dataIndex: 'desc',
+      title: '是否作为筛选项',
+      dataIndex: 'is_filter',
+      valueType: 'switch',
+      render: (_, values) => {
+        return (
+          <Switch
+            defaultChecked={values?.is_filter}
+            onChange={async (checked) => {
+              const res = await editAttrKey({
+                is_filter: checked,
+                id: values?.id,
+              });
+              message.success(res?.message || '编辑成功');
+              refTable?.current?.reload();
+            }}
+          />
+        );
+      },
+    },
+    {
+      title: '是否作为sku项',
+      dataIndex: 'is_sku',
+      valueType: 'switch',
+      render: (_, values) => {
+        return (
+          <Switch
+            defaultChecked={values?.is_sku}
+            onChange={async (checked) => {
+              const res = await editAttrKey({
+                is_sku: checked,
+                id: values?.id,
+              });
+              message.success(res?.message || '编辑成功');
+              refTable?.current?.reload();
+            }}
+          />
+        );
+      },
+    },
+    {
+      title: '排序',
+      dataIndex: 'order',
+      sorter: true,
+      hideInSearch: true,
+    },
+    {
+      title: '创建时间',
+      dataIndex: 'createTime',
+      valueType: 'dateTimeRange',
+      hideInTable: true,
+    },
+    {
+      title: '创建时间',
+      dataIndex: 'createTime',
+      hideInSearch: true,
+      valueType: 'dateTime',
+    },
+    {
+      title: '更新时间',
+      dataIndex: 'updateTime',
+      valueType: 'dateTime',
       hideInSearch: true,
     },
     {
@@ -106,17 +155,6 @@ const AttrKey: React.FC = () => {
     },
   ];
 
-  const getCompon = async () => {
-    const res = await queryComponList();
-    if (res?.code === 200) {
-      setTreeData(res?.data);
-    }
-  };
-
-  useEffect(() => {
-    getCompon();
-  }, []);
-
   const renderFormItemDom = () => {
     return <AttrKeyFormItem />;
   };
@@ -124,12 +162,10 @@ const AttrKey: React.FC = () => {
   const onFinish = async (values: any) => {
     const relVal = {
       ...values,
-      compon: values?.compon?.[0]?.map((item: any) => item?.value),
-      half_compon: values?.compon?.[1],
     };
     if (cItem) {
       // 编辑逻辑，后端要操作组件数据和角色数据
-      const res = await editRole({ ...relVal, id: cItem?.id });
+      const res = await editAttrKey({ ...relVal, id: cItem?.id });
       if (res?.code === 200) {
         message.success(res?.message || '创建成功');
         setVisibleDrawer(false);
@@ -137,7 +173,7 @@ const AttrKey: React.FC = () => {
       }
     } else {
       // 新增逻辑，后端要操作组件数据和角色数据
-      const res = await addRole(relVal);
+      const res = await addAttrKey(relVal);
       if (res?.code === 200) {
         message.success(res?.message || '创建成功');
         setVisibleDrawer(false);
@@ -151,12 +187,15 @@ const AttrKey: React.FC = () => {
       <ProTable
         scroll={{ x: true }}
         bordered
-        request={async (params) => {
-          const { current, pageSize, ...restParams } = params;
-          const res = await queryRoleList({
+        request={async (params, sort) => {
+          const { current, pageSize, createTime, ...restParams } = params;
+          const res = await queryAttrKeyList({
             current,
             pageSize,
+            startTime: createTime?.[0] || undefined,
+            endTime: createTime?.[1] || undefined,
             ...restParams,
+            ...sort,
           });
           if (res?.code === 200) {
             return {
@@ -204,6 +243,10 @@ const AttrKey: React.FC = () => {
         onCloseDrawer={onCloseDrawer}
         visibleDrawer={visibleDrawer}
         cItem={cItem}
+        initialValues={{
+          is_sku: true,
+          is_filter: true,
+        }}
         title="新增角色"
         renderFormItemDom={renderFormItemDom}
         onFinish={onFinish as any}

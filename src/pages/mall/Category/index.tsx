@@ -8,18 +8,18 @@ import {
 import { toTree } from '@/utils';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
-import { Button, message, Popconfirm } from 'antd';
+import { Button, message, Popconfirm, Switch } from 'antd';
 import React, { useRef, useState } from 'react';
 import AttrKeyFormItem from './components/FormItem';
 
-const ComponManage: React.FC = () => {
+const CategoryManage: React.FC = () => {
   const refTable = useRef<ActionType>();
   const formRef = useRef();
   const childrenRef = useRef<any>(null);
 
-  const [cItem, setCItem] = useState<Compon.ComponEntity>();
+  const [cItem, setCItem] = useState<NCategory.CategoryEntity>();
 
-  const del = async (id: string) => {
+  const del = async (id: string | number) => {
     const res = await delCategory({ id });
     if (res?.code === 200) {
       refTable?.current?.reload();
@@ -27,7 +27,9 @@ const ComponManage: React.FC = () => {
     }
   };
 
-  const columns: ProColumns[] = [
+  const columns: ProColumns<
+    { children?: NCategory.CategoryEntity } & NCategory.CategoryEntity
+  >[] = [
     {
       title: '图表',
       dataIndex: 'icon',
@@ -46,6 +48,21 @@ const ComponManage: React.FC = () => {
       title: '是否显示',
       dataIndex: 'is_show',
       valueType: 'switch',
+      render: (_, values) => {
+        return (
+          <Switch
+            defaultChecked={values?.is_show}
+            onChange={async (checked) => {
+              const res = await editCategory({
+                is_show: checked,
+                id: values?.id,
+              });
+              message.success(res?.message || '编辑成功');
+              refTable?.current?.reload();
+            }}
+          />
+        );
+      },
     },
     {
       title: '排序',
@@ -232,4 +249,4 @@ const ComponManage: React.FC = () => {
   );
 };
 
-export default ComponManage;
+export default CategoryManage;
