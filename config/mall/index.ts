@@ -25,18 +25,25 @@ export default {
           path: '/mall/category',
           component: './mall/Category',
         },
+      ],
+    },
+    {
+      name: '属性管理',
+      icon: 'team',
+      path: '/mall/attr',
+      routes: [
+        {
+          path: '/mall/attr',
+          redirect: '/mall/attr/attrVal',
+        },
         {
           name: '属性值管理',
-          hideInMenu: true,
-          icon: 'team',
-          path: '/mall/category/attrVal',
+          path: '/mall/attr/attrVal',
           component: './mall/AttrVal',
         },
         {
           name: '属性key管理',
-          hideInMenu: true,
-          icon: 'team',
-          path: '/mall/category/attrKey',
+          path: '/mall/attr/attrKey',
           component: './mall/AttrKey',
         },
       ],

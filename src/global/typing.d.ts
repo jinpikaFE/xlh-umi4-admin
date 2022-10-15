@@ -1,8 +1,13 @@
 declare namespace Global {
-  type pageParams = {
+  type PageParams = {
     pageSize?: number;
     current?: number;
     search?: string;
+  };
+
+  type QueryParams = {
+    startTime?: string;
+    endTime?: string;
   };
 
   type Result<T = any> = {

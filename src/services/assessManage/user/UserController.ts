@@ -2,7 +2,7 @@
 // 该文件由 OneAPI 自动生成，请勿手动修改！
 import { request } from '@umijs/max';
 
-export async function queryUserList(params: Global.pageParams) {
+export async function queryUserList(params: Global.PageParams) {
   return request<Global.Result<User.UserEntity[]>>('/api/users', {
     method: 'get',
     params,

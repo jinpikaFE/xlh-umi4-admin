@@ -1,9 +1,9 @@
 declare namespace NAttrVal {
+  type QueryParams = Global.QueryParams &
+    Partial<Pick<AttrValEntity, 'name' | 'order'>>;
   type AttrValEntity = {
-    id?: string | number;
+    id: string | number;
     name: string;
-    type: string;
-    parentId?: string;
-    parentName?: string;
+    order: string;
   };
 }

@@ -2,7 +2,7 @@
 // 该文件由 OneAPI 自动生成，请勿手动修改！
 import { request } from '@umijs/max';
 
-export async function queryCategoryList(params?: Global.pageParams) {
+export async function queryCategoryList(params?: Global.PageParams) {
   return request<Global.Result<NCategory.CategoryEntity[]>>(
     '/api/mall/category',
     {

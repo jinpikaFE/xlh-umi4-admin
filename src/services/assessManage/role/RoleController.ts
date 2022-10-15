@@ -2,7 +2,7 @@
 // 该文件由 OneAPI 自动生成，请勿手动修改！
 import { request } from '@umijs/max';
 
-export async function queryRoleList(params: Global.pageParams) {
+export async function queryRoleList(params: Global.PageParams) {
   return request<Global.Result<Role.RoleEntity[]>>('/api/roles', {
     method: 'get',
     params,
