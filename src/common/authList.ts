@@ -4,6 +4,10 @@ export enum AUTH_ITEM_ENUM {
 
   MALL = '商城管理',
   MALL_CATEGORY = '商品分类',
+  MALL_ATTR = '属性管理',
+  MALL_ATTR_VAL = '属性值管理',
+  MALL_ATTR_KEY = '属性key管理',
+  MALL_BRAND = '品牌管理',
 
   AUTH = '权限管理',
   AUTH_COMPON = '组件管理',

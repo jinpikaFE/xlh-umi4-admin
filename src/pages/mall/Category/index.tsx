@@ -31,7 +31,7 @@ const CategoryManage: React.FC = () => {
     { children?: NCategory.CategoryEntity } & NCategory.CategoryEntity
   >[] = [
     {
-      title: '图表',
+      title: '图标',
       dataIndex: 'icon',
       valueType: 'avatar',
     },
